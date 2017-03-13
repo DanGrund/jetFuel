@@ -1,0 +1,22 @@
+body {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+}
+
+#link-folders {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+}
+
+#folders {
+  border: 1px solid black;
+}
+
+#links {
+  border: 1px solid black;
+}
