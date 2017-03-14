@@ -26,11 +26,23 @@ app.get('/api/v1/folders', (request, response) => {
   response.json(app.locals.folders)
 })
 
+app.post('/api/v1/folders', (request, response) => {
+  const { folder } = request.body
+  const id = md5(folder)
+
+  app.locals.folders.push({ name: folder, id })
+  console.log(app.locals.folders);
+  response.json(app.locals.folders)
+})
+
 
 
 app.listen(app.get('port'), () => {
   console.log(`The shit is lit AF over at ${app.get('port')}`);
 })
+
+
+
 
 // folder = {
 //   id: 1,
