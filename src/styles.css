@@ -11,18 +11,21 @@
   align-content: space-between;
 }
 
+.logo {
+  font-size: 6vh;
+}
+
 #folders {
-  border: 1px solid black;
   width: 35vw;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
+  border-right: 2px solid black;
 }
 
 #links {
-  border: 1px solid black;
   width: 65vw;
-  height: 80vh;
+}
+
+#links, #folders {
+  height: 78vh;
   display: flex;
   flex-direction: column;
 }
@@ -36,6 +39,7 @@
   height: 20vh;
   background-color: magenta;
 }
+
 
 .header form {
   display: flex;

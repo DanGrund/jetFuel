@@ -1,4 +1,5 @@
 let activeFolder;
+let duplicateError = false;
 
 const loadFolders = () => {
   fetch('/api/v1/folders', {
@@ -10,7 +11,22 @@ const loadFolders = () => {
 
 $('document').ready(loadFolders);
 
+const duplicateFolderError = () => {
+  if(duplicateError) {
+    $('.duplicate-error').text('Folder already exists')
+  } else {
+    $('.duplicate-error').text('')
+  }
+}
+
 const displayFolders = (folders) => {
+  if(folders === 'dupe') {
+    duplicateError = true;
+    return duplicateFolderError();
+  } else {
+    duplicateError = false;
+    duplicateFolderError();
+  }
   $('.folder').remove();
   folders.forEach(folder => {
     $('#folders').append(`
