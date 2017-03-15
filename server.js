@@ -69,7 +69,7 @@ app.put('/api/v1/folders/:id', (request, response) => {
   const folder = folders.find(folder => {
     return folder.id == id
   })
-  const shortURL = md5(longURL)
+  const shortURL = md5(longURL).slice(0, 5)
   const newURLObject = {
     longURL,
     shortURL,
