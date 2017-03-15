@@ -18,7 +18,7 @@ app.get('/', (request, response) => {
 
 app.locals.folders = [
   { id: 1,
-    name: 'drugs',
+    name: 'puppies',
     urls: []
   }
 ];
@@ -84,6 +84,20 @@ app.put('/api/v1/folders/:id', (request, response) => {
   })
 
   response.status(201).json(folder);
+})
+
+app.get(`/:shortURL`, (request, response) => {
+  const { shortURL } = request.params;
+  let longURL;
+  app.locals.folders.forEach(folder => {
+    folder.urls.forEach(url => {
+      if(url.shortURL === shortURL) {
+        return longURL = url.longURL
+      }
+    })
+  })
+  console.log(`${longURL}`);
+  response.redirect(`${longURL}`);
 })
 
 
