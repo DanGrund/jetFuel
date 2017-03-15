@@ -88,10 +88,11 @@ $('#folders').on('click', '.folder', (e) => {
 })
 
 const addURL = (url) => {
+  const longURL = validateHTTP(url)
   fetch(`/api/v1/folders/${activeFolder}`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
-    body: JSON.stringify({ longURL: url })
+    body: JSON.stringify({ longURL })
   })
     .then(res => res.json())
     .then(folder => displayURLs(folder.urls));
