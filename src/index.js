@@ -29,6 +29,14 @@ const displayURLS = (urls) => {
   })
 }
 
+const loadURLs = () => {
+  fetch(`/api/v1/folders/${activeFolder}`, {
+    method: 'GET'
+  })
+    .then(res => res.json())
+    .then(folder => console.log(folder));
+}
+
 $('#create-folder-btn').on('click', (e) => {
   e.preventDefault();
   const newFolder = $('#new-folder').val();
@@ -60,18 +68,19 @@ $('#folders').on('click', '.folder', (e) => {
   toggleActive(titleId);
 })
 
-const addURL = (id, url) => {
-  fetch(`/api/v1/folders/${id}`, {
+const addURL = (url) => {
+  fetch(`/api/v1/folders/${activeFolder}`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
     body: JSON.stringify({ longURL: url })
   })
     .then(res => res.json())
-    .then(folders => console.log(folders));
+    .then(folder => displayURLS(folder.urls));
 }
 
 $('#shorten-url-btn').on('click', (e) => {
   e.preventDefault()
   const url = $('#url-input').val();
-  addURL(activeFolder, url)
+  addURL(url)
+  // loadURLs();
 })
