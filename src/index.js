@@ -20,6 +20,15 @@ const displayFolders = (folders) => {
   })
 }
 
+const displayURLS = (urls) => {
+  $('.folder').remove();
+  folders.forEach(folder => {
+    $('#folders').append(`
+      <li class='folder' id=${folder.id}>${folder.name}</li>`
+    )
+  })
+}
+
 $('#create-folder-btn').on('click', (e) => {
   e.preventDefault();
   const newFolder = $('#new-folder').val();
