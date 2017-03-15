@@ -24,24 +24,42 @@ app.locals.folders = [
 ];
 
 app.get('/api/v1/folders', (request, response) => {
-  response.json(app.locals.folders)
+  response.status(201).json(app.locals.folders)
 })
 
 app.get('/api/v1/folders/:id', (request, response) => {
   const { id } = request.params
+
+  if(!id) {
+    return response.status(422).send({
+      error: 'ID did not match any existing folders'
+    })
+  }
+
   const folder = app.locals.folders.find(folder => {
     return folder.id == id
   })
 
-  response.json(folder)
+  response.status(201).json(folder)
 })
 
 app.post('/api/v1/folders', (request, response) => {
   const { folder } = request.body
   const id = md5(folder)
+  const { folders } = app.locals
 
+  let dupe = false;
+  folders.forEach(item => {
+    if(folder === item.name) {
+    dupe = true;
+    }
+  })
+
+  if(dupe) {
+    return response.status(422).json('dupe')
+  }
   app.locals.folders.push({ name: folder, id, urls: [] })
-  response.json(app.locals.folders)
+  response.status(201).json(app.locals.folders)
 })
 
 app.put('/api/v1/folders/:id', (request, response) => {
@@ -65,23 +83,10 @@ app.put('/api/v1/folders/:id', (request, response) => {
     return folder
   })
 
-  response.json(folder);
+  response.status(201).json(folder);
 })
 
 
 app.listen(app.get('port'), () => {
   console.log(`The shit is lit AF over at ${app.get('port')}`);
 })
-
-
-
-
-// folder = {
-//   id: 1,
-// name: food,
-// urls: [
-//         { longURL: asldfksfsdf.com,
-//                id: slfjk
-//         }
-//     ]
-// }
