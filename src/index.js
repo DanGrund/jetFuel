@@ -14,7 +14,9 @@ $('document').ready(loadFolders);
 const displayFolders = (folders) => {
   $('.folder').remove();
   folders.forEach(folder => {
-    $('#folders').append(`<li class='folder' id=${folder.id}>${folder.name}</li>`)
+    $('#folders').append(`
+      <li class='folder' id=${folder.id}>${folder.name}</li>`
+    )
   })
 }
 
@@ -42,10 +44,25 @@ const toggleActive = (id) => {
   activeFolder = id;
   $(`.folder`).removeClass('active-folder')
   $(`#${activeFolder}`).addClass('active-folder')
-  console.log(activeFolder);
 }
 
 $('#folders').on('click', '.folder', (e) => {
   const titleId = e.target.id;
-  toggleActive(titleId)
+  toggleActive(titleId);
+})
+
+const addURL = (id, url) => {
+  fetch(`/api/v1/folders/${id}`, {
+    headers: { 'Content-Type': 'application/json' },
+    method: 'PUT',
+    body: JSON.stringify({ longURL: url })
+  })
+    .then(res => res.json())
+    .then(folders => console.log(folders));
+}
+
+$('#shorten-url-btn').on('click', (e) => {
+  e.preventDefault()
+  const url = $('#url-input').val();
+  addURL(activeFolder, url)
 })
