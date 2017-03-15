@@ -72,16 +72,3 @@ app.put('/api/v1/folders/:id', (request, response) => {
 app.listen(app.get('port'), () => {
   console.log(`The shit is lit AF over at ${app.get('port')}`);
 })
-
-
-
-
-// folder = {
-//   id: 1,
-// name: food,
-// urls: [
-//         { longURL: asldfksfsdf.com,
-//                id: slfjk
-//         }
-//     ]
-// }

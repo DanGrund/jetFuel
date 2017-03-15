@@ -80,3 +80,17 @@
 .active-folder {
   background-color: magenta;
 }
+
+.url-table-row {
+  padding: 5px;
+}
+
+#urls-table {
+  width: 95%;
+  align-self: center;
+}
+
+#urls-table td {
+  text-align: center;
+  padding: 5px;
+}

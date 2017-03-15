@@ -10,7 +10,6 @@ const loadFolders = () => {
 
 $('document').ready(loadFolders);
 
-
 const displayFolders = (folders) => {
   $('.folder').remove();
   folders.forEach(folder => {
@@ -34,7 +33,7 @@ const loadURLs = () => {
     method: 'GET'
   })
     .then(res => res.json())
-    .then(folder => console.log(folder));
+    .then(folder => displayURLS(folder.urls));
 }
 
 $('#create-folder-btn').on('click', (e) => {
@@ -66,6 +65,7 @@ const toggleActive = (id) => {
 $('#folders').on('click', '.folder', (e) => {
   const titleId = e.target.id;
   toggleActive(titleId);
+  loadURLs()
 })
 
 const addURL = (url) => {
