@@ -1,5 +1,5 @@
+
 let activeFolder;
-let duplicateError = false;
 
 const loadFolders = () => {
   fetch('/api/v1/folders', {
@@ -11,8 +11,8 @@ const loadFolders = () => {
 
 $('document').ready(loadFolders);
 
-const duplicateFolderError = () => {
-  if(duplicateError) {
+const duplicateFolderError = (input) => {
+  if(input) {
     $('.duplicate-error').text('Folder already exists')
   } else {
     $('.duplicate-error').text('')
@@ -21,11 +21,9 @@ const duplicateFolderError = () => {
 
 const displayFolders = (folders) => {
   if(folders === 'dupe') {
-    duplicateError = true;
-    return duplicateFolderError();
+    return duplicateFolderError(true);
   } else {
-    duplicateError = false;
-    duplicateFolderError();
+    duplicateFolderError(false);
   }
   $('.folder').remove();
   folders.forEach(folder => {
@@ -43,7 +41,7 @@ const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
     $('#urls-table').append(
-      `<tr class='url-table-row'><td>${url.shortURL}</td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${url.dateCreated}</td></tr>`
+      `<tr class='url-table-row'><td>${url.shortURL}</td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.dateCreated).format('l')}</td></tr>`
     )
   })
 }
@@ -90,10 +88,11 @@ $('#folders').on('click', '.folder', (e) => {
 })
 
 const addURL = (url) => {
+  const longURL = validateHTTP(url)
   fetch(`/api/v1/folders/${activeFolder}`, {
     headers: { 'Content-Type': 'application/json' },
     method: 'PUT',
-    body: JSON.stringify({ longURL: url })
+    body: JSON.stringify({ longURL })
   })
     .then(res => res.json())
     .then(folder => displayURLs(folder.urls));

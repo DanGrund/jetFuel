@@ -17,17 +17,21 @@
 
 #folders {
   width: 35vw;
-  border-right: 2px solid black;
 }
 
 #links {
-  width: 65vw;
+  width: 63vw;
+  position: fixed;
+  right: 0;
+  border-left: 2px solid black;
+
 }
 
 #links, #folders {
   height: 78vh;
   display: flex;
   flex-direction: column;
+  margin-top: 22vh;
 }
 
 .header {
@@ -36,10 +40,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 20vh;
+  height: 22vh;
   background-color: magenta;
+  position: fixed;
 }
 
+.duplicate-error {
+  height: 18px;
+}
 
 .header form {
   display: flex;
@@ -48,13 +56,17 @@
 }
 
 .header h1 {
-  padding: 20px;
+  margin: 10px auto;
 }
 
 #folders-header {
   align-self: center;
   font-size: 30px;
   padding: 5px;
+}
+
+.new-folder-form {
+  margin: 5px auto;
 }
 
 .folder {

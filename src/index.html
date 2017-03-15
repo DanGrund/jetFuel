@@ -10,11 +10,11 @@
 
     <section id='new-folder-field' class='header'>
       <h1 class='logo'>Jet Fuel</h1>
-      <form>
+      <form class='new-folder-form'>
         <input id='new-folder' type="text" placeholder="new folder" />
         <button id='create-folder-btn'>create folder</button>
       </form>
-      <div class='duplicate-error'></div>
+      <span class='duplicate-error'></span>
     </section>
 
     <section id='link-folders'>
@@ -37,7 +37,9 @@
       </article>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script type="text/javascript" src='index.js'>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js" type="text/javascript"></script>
+    <script type='text/javascript' src='helpers.js'></script>
+    <script type='text/javascript' src='index.js'>
     </script>
   </body>
 </html>
