@@ -18,7 +18,8 @@ app.get('/', (request, response) => {
 
 app.locals.folders = [
   { id: 1,
-    name: 'drugs'
+    name: 'drugs',
+    urls: []
   }
 ];
 
@@ -30,11 +31,35 @@ app.post('/api/v1/folders', (request, response) => {
   const { folder } = request.body
   const id = md5(folder)
 
-  app.locals.folders.push({ name: folder, id })
+  app.locals.folders.push({ name: folder, id, urls: [] })
   console.log(app.locals.folders);
   response.json(app.locals.folders)
 })
 
+app.put('/api/v1/folders/:id', (request, response) => {
+  const { id } = request.params
+  const { longURL } = request.body
+  let { folders } = app.locals
+  const folder = folders.find(folder => {
+    return folder.id = id
+  })
+
+  const shortURL = md5(longURL)
+  const newURLObject = {
+    longURL,
+    shortURL,
+    dateCreated: Date.now(),
+    count: 0
+  }
+  folders = folders.map(folder => {
+    if(folder.id === id) {
+      folder.urls.push(newURLObject)
+    }
+    return folder
+  })
+
+  response.json(folders);
+})
 
 
 app.listen(app.get('port'), () => {

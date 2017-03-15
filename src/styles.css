@@ -61,6 +61,10 @@
   border-radius: 5px;
 }
 
+.folder:hover {
+  cursor: pointer;
+}
+
 #url-input-form {
   width: 100%;
   display: flex;
@@ -71,4 +75,8 @@
 
 #url-input-form input {
   width: 60%;
+}
+
+.active-folder {
+  background-color: magenta;
 }
