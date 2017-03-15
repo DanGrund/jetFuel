@@ -19,7 +19,11 @@ const displayFolders = (folders) => {
   })
 }
 
-const displayURLS = (urls) => {
+const clearInput = (input) => {
+  $(`${input}`).val('')
+}
+
+const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
     $('#urls-table').append(
@@ -33,13 +37,14 @@ const loadURLs = () => {
     method: 'GET'
   })
     .then(res => res.json())
-    .then(folder => displayURLS(folder.urls));
+    .then(folder => displayURLs(folder.urls));
 }
 
 $('#create-folder-btn').on('click', (e) => {
   e.preventDefault();
   const newFolder = $('#new-folder').val();
   addFolder(newFolder);
+  clearInput('#new-folder')
 })
 
 const addFolder = (folder) => {
@@ -75,12 +80,12 @@ const addURL = (url) => {
     body: JSON.stringify({ longURL: url })
   })
     .then(res => res.json())
-    .then(folder => displayURLS(folder.urls));
+    .then(folder => displayURLs(folder.urls));
 }
 
 $('#shorten-url-btn').on('click', (e) => {
   e.preventDefault()
   const url = $('#url-input').val();
   addURL(url)
-  // loadURLs();
+  clearInput('#url-input')
 })
