@@ -92,11 +92,11 @@ app.get(`/:shortURL`, (request, response) => {
   app.locals.folders.forEach(folder => {
     folder.urls.forEach(url => {
       if(url.shortURL === shortURL) {
+        url.visitCount++
         return longURL = url.longURL
       }
     })
   })
-  console.log(`${longURL}`);
   response.redirect(`${longURL}`);
 })
 
