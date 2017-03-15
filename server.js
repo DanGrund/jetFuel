@@ -49,7 +49,7 @@ app.put('/api/v1/folders/:id', (request, response) => {
     longURL,
     shortURL,
     dateCreated: Date.now(),
-    count: 0
+    visitCount: 0
   }
   folders = folders.map(folder => {
     if(folder.id === id) {

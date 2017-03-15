@@ -21,10 +21,10 @@ const displayFolders = (folders) => {
 }
 
 const displayURLS = (urls) => {
-  $('.folder').remove();
-  folders.forEach(folder => {
-    $('#folders').append(`
-      <li class='folder' id=${folder.id}>${folder.name}</li>`
+  $('.url-table-row').remove();
+  urls.forEach(url => {
+    $('#urls-table').append(
+      `<tr class='url-table-row'><td>${url.shortURL}</td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${url.dateCreated}</td></tr>`
     )
   })
 }
