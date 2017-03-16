@@ -130,6 +130,10 @@ app.put(`/:shortURL`, (request, response) => {
   })
 })
 
-app.listen(app.get('port'), () => {
-  console.log(`The shit is lit AF over at ${app.get('port')}`);
-})
+if(!module.parent) {
+  app.listen(app.get('port'), () => {
+    console.log(`The shit is lit AF over at ${app.get('port')}`);
+  })
+}
+
+module.exports = app;
