@@ -4,6 +4,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const md5 = require('md5');
 const fs = require('fs');
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration);
 
 app.use(cors());
 app.use(function(req, res, next) {
@@ -31,7 +34,15 @@ app.locals.folders = [
 ];
 
 app.get('/api/v1/folders', (request, response) => {
-  response.status(201).json(app.locals.folders)
+  database('folders').select()
+          .then((folders) => {
+            response.status(200).json(folders);
+          })
+          .catch(function(error) {
+            console.error('somethings wrong with db')
+            console.log(error)
+          });
+  // response.status(201).json(app.locals.folders)
 })
 
 app.get('/api/v1/folders/:id', (request, response) => {
