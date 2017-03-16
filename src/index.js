@@ -1,5 +1,5 @@
-
 let activeFolder;
+let currentURLs;
 
 const loadFolders = () => {
   fetch('/api/v1/folders', {
@@ -41,7 +41,7 @@ const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
     $('#urls-table').append(
-      `<tr class='url-table-row'><td>${url.shortURL}</td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.dateCreated).format('l')}</td></tr>`
+      `<tr class='url-table-row'><td><a href="localhost:3000/${url.shortURL}" target="_blank">localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.dateCreated).format('lll')}</td></tr>`
     )
   })
 }
@@ -51,7 +51,10 @@ const loadURLs = () => {
     method: 'GET'
   })
     .then(res => res.json())
-    .then(folder => displayURLs(folder.urls));
+    .then(folder => {
+      currentURLs = folder.urls;
+      displayURLs(currentURLs)
+    });
 }
 
 $('#create-folder-btn').on('click', (e) => {
@@ -103,4 +106,35 @@ $('#shorten-url-btn').on('click', (e) => {
   const url = $('#url-input').val();
   addURL(url)
   clearInput('#url-input')
+})
+
+const sortUp = (attribute) => {
+  newURLorder = currentURLs.sort((a,b)=>{return a[attribute] > b[attribute] })
+  displayURLs(newURLorder)
+}
+
+const sortDown = (attribute) => {
+  newURLorder = currentURLs.sort((a,b)=>{return a[attribute] < b[attribute] })
+  displayURLs(newURLorder)
+}
+
+
+$('#visits').on('click', () => {
+ if ($('#visits').hasClass('visits-up')) {
+   sortDown('visitCount')
+   $('#visits').toggleClass('visits-up')
+ } else {
+   sortUp('visitCount')
+   $('#visits').toggleClass('visits-up')
+ }
+})
+
+$('#date-created').on('click', () => {
+ if ($('#date-created').hasClass('date-created-up')) {
+   sortDown('dateCreated')
+   $('#date-created').toggleClass('date-created-up')
+ } else {
+   sortUp('dateCreated')
+   $('#date-created').toggleClass('date-created-up')
+ }
 })

@@ -31,8 +31,12 @@
           <button id="shorten-url-btn">shorten url</button>
         </form>
 
-        <table id='urls-table'>
-          <tr><th>Short</th><th>Long</th><th>Visits<button>⬆️</button></th><th>date created<button>⬇️</button></th></tr>
+        <table id='urls-table' class="sortable">
+          <thead>
+            <tr><th>Short</th><th>Long</th><th id="visits">Visits</th><th id="date-created">date created</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
         </table>
       </article>
     </section>
@@ -41,5 +45,6 @@
     <script type='text/javascript' src='helpers.js'></script>
     <script type='text/javascript' src='index.js'>
     </script>
+    <!-- <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script> -->
   </body>
 </html>
