@@ -140,12 +140,12 @@ $('#date-created').on('click', () => {
 })
 
 $('#urls-table').on('click', '.short-url-link', (e) => {
-  redirectOnClick(e.target.id)
+  updateVisitCount(e.target.id)
 })
 
 
-const redirectOnClick = (urlID) => {
+const updateVisitCount = (urlID) => {
   fetch(`/${urlID}`, {
-    method: 'GET',
+    method: 'PUT',
   })
 }

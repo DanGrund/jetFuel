@@ -95,7 +95,6 @@ app.put('/api/v1/folders/:id', (request, response) => {
 
 app.get(`/:shortURL`, (request, response) => {
   const { shortURL } = request.params;
-  console.log(shortURL)
   let longURL;
   app.locals.folders.forEach(folder => {
     folder.urls.forEach(url => {
@@ -108,6 +107,17 @@ app.get(`/:shortURL`, (request, response) => {
   response.status(302).redirect(`${longURL}`);
 })
 
+app.put(`/:shortURL`, (request, response) => {
+  const { shortURL } = request.params;
+  app.locals.folders.forEach(folder => {
+    folder.urls.forEach(url => {
+      if(url.shortURL === shortURL) {
+        url.visitCount++
+        return
+      }
+    })
+  })
+})
 
 app.listen(app.get('port'), () => {
   console.log(`The shit is lit AF over at ${app.get('port')}`);
