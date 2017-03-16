@@ -41,7 +41,7 @@ const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
     $('#urls-table').append(
-      `<tr class='url-table-row'><td><a href="${url.longURL}" class="short-url-link" id=${url.shortURL} target="_blank">localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.dateCreated).format('lll')}</td></tr>`
+      `<tr class='url-table-row'><td><a href="${url.longURL}" class="short-url-link" id=${url.shortURL} target="_blank">localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.created_at).format('lll')}</td></tr>`
     )
   })
 }
@@ -51,8 +51,8 @@ const loadURLs = () => {
     method: 'GET'
   })
     .then(res => res.json())
-    .then(folder => {
-      currentURLs = folder.urls;
+    .then(urls => {
+      currentURLs = urls;
       displayURLs(currentURLs)
     });
 }
@@ -94,11 +94,13 @@ const addURL = (url) => {
   const longURL = validateHTTP(url)
   fetch(`/api/v1/folders/${activeFolder}`, {
     headers: { 'Content-Type': 'application/json' },
-    method: 'PUT',
+    method: 'POST',
     body: JSON.stringify({ longURL })
   })
     .then(res => res.json())
-    .then(folder => displayURLs(folder.urls));
+    .then(urlData => {
+      displayURLs(urlData);
+    })
 }
 
 $('#shorten-url-btn').on('click', (e) => {
@@ -140,12 +142,12 @@ $('#date-created').on('click', () => {
 })
 
 $('#urls-table').on('click', '.short-url-link', (e) => {
-  redirectOnClick(e.target.id)
+  updateVisitCount(e.target.id)
 })
 
 
-const redirectOnClick = (urlID) => {
+const updateVisitCount = (urlID) => {
   fetch(`/${urlID}`, {
-    method: 'GET',
+    method: 'PUT',
   })
 }
