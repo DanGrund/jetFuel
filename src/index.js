@@ -41,7 +41,7 @@ const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
     $('#urls-table').append(
-      `<tr class='url-table-row'><td><a href="localhost:3000/${url.shortURL}" target="_blank">localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.dateCreated).format('lll')}</td></tr>`
+      `<tr class='url-table-row'><td><a href="localhost:3000/${url.shortURL}" class="short-url-link" id=${url.shortURL}>localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.dateCreated).format('lll')}</td></tr>`
     )
   })
 }
@@ -138,3 +138,15 @@ $('#date-created').on('click', () => {
    $('#date-created').toggleClass('date-created-up')
  }
 })
+
+$('#urls-table').on('click', '.short-url-link', (e) => {
+  redirectOnClick(e.target.id)
+})
+
+
+const redirectOnClick = (urlID) => {
+  fetch(`/${urlID}`, {
+    method: 'GET',
+  })
+  .then(response => window.open(`${response.url}`, "_blank"))
+}
