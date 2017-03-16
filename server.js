@@ -1,9 +1,20 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const md5 = require('md5');
 const fs = require('fs');
+const environment = process.env.NODE_ENV || 'development';
+const configuration = require('./knexfile')[environment];
+const database = require('knex')(configuration);
 
+
+app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('src'));
@@ -16,89 +27,113 @@ app.get('/', (request, response) => {
   })
 })
 
-app.locals.folders = [
-  { id: 1,
-    name: 'puppies',
-    urls: []
-  }
-];
-
 app.get('/api/v1/folders', (request, response) => {
-  response.status(201).json(app.locals.folders)
+  database('folders').select()
+    .then((folders) => {
+      response.status(200).json(folders);
+    })
+    .catch(function(error) {
+      console.error('somethings wrong with db')
+      console.log(error)
+    });
 })
 
 app.get('/api/v1/folders/:id', (request, response) => {
-  const { id } = request.params
-
-  if(!id) {
-    return response.status(422).send({
-      error: 'ID did not match any existing folders'
+  const { id } = request.params;
+  database('urls').where('folder_id', id).select()
+    .then((urlData) => {
+      response.status(201).json(urlData)
     })
-  }
-
-  const folder = app.locals.folders.find(folder => {
-    return folder.id == id
-  })
-
-  response.status(201).json(folder)
+    .catch((error)=>{
+      console.error('you fucked up')
+      response.status(422).send({
+        error: 'ID did not match any existing folders'
+      })
+    })
 })
 
 app.post('/api/v1/folders', (request, response) => {
   const { folder } = request.body
-  const id = md5(folder)
-  const { folders } = app.locals
+  const newFolder = { name: folder }
 
-  let dupe = false;
-  folders.forEach(item => {
-    if(folder === item.name) {
-    dupe = true;
-    }
+  database('folders').insert(newFolder)
+  .then(()=> {
+    database('folders').select()
+      .then((folders) => {
+        response.status(200).json(folders);
+      })
+      .catch((error) => {
+        console.error('somethings wrong with db')
+      });
   })
-
-  if(dupe) {
-    return response.status(422).json('dupe')
-  }
-  app.locals.folders.push({ name: folder, id, urls: [] })
-  response.status(201).json(app.locals.folders)
 })
 
-app.put('/api/v1/folders/:id', (request, response) => {
+app.post('/api/v1/folders/:id', (request, response) => {
   const { id } = request.params
   const { longURL } = request.body
-  let { folders } = app.locals
-  const folder = folders.find(folder => {
-    return folder.id == id
-  })
+
   const shortURL = md5(longURL).slice(0, 5)
   const newURLObject = {
     longURL,
     shortURL,
-    dateCreated: Date.now(),
-    visitCount: 0
+    visitCount: 0,
+    folder_id: id
   }
-  const updatedFolders = folders.map(folder => {
-    if(folder.id == id) {
-      folder.urls.push(newURLObject)
-    }
-    return folder
-  })
 
-  response.status(201).json(folder);
+  database('urls').insert(newURLObject)
+  .then(()=> {
+    database('urls').where('folder_id', id).select()
+    .then((urlData) => {
+      response.status(201).json(urlData)
+    })
+    .catch((error)=>{
+      console.error('you fucked up')
+      response.status(422).send({
+        error: 'ID did not match any existing folders'
+      })
+    })
+  })
 })
 
 app.get(`/:shortURL`, (request, response) => {
   const { shortURL } = request.params;
-  console.log(shortURL)
   let longURL;
-  app.locals.folders.forEach(folder => {
-    folder.urls.forEach(url => {
-      if(url.shortURL === shortURL) {
-        url.visitCount++
-        return longURL = url.longURL
-      }
+  let visits;
+  
+  database('urls').where('shortURL', shortURL).select()
+  .then((url)=>{
+    longURL = (url[0].longURL)
+    visits = (url[0].visitCount) + 1
+  })
+  .then(()=>{
+    database('urls').where('shortURL', shortURL).update({ visitCount: visits })
+    .then(()=>{
+      response.status(302).redirect(`${longURL}`);
     })
   })
-  response.redirect(`${longURL}`);
+  .catch((error)=>{
+    console.error('is it this one?')
+    response.status(422).send({
+      error: 'nope'
+    })
+  })
+})
+
+app.put(`/:shortURL`, (request, response) => {
+  const { shortURL } = request.params;
+  let visits;
+
+  database('urls').where('shortURL', shortURL).select()
+  .then((url)=>{
+    visits = (url[0].visitCount) + 1
+  })
+  .then(()=>{
+    database('urls').where('shortURL', shortURL).update({ visitCount: visits })
+    .then(()=>{
+      response.status(200);
+    })
+  })
+
 })
 
 if(!module.parent) {

@@ -4,6 +4,3 @@ const validateHTTP = (url) => {
   }
   return url;
 }
-
-
-module.exports = validateHTTP
