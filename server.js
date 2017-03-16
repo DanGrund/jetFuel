@@ -108,7 +108,10 @@ app.get(`/:shortURL`, (request, response) => {
   response.status(302).redirect(`${longURL}`);
 })
 
+if(!module.parent) {
+  app.listen(app.get('port'), () => {
+    console.log(`The shit is lit AF over at ${app.get('port')}`);
+  })
+}
 
-app.listen(app.get('port'), () => {
-  console.log(`The shit is lit AF over at ${app.get('port')}`);
-})
+module.exports = app;
