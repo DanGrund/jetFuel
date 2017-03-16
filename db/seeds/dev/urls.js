@@ -3,21 +3,22 @@ exports.seed = function(knex, Promise) {
   .then(() => {
     return Promise.all([
       knex('urls').insert({
-        id: 1,
+        id: 9992,
         shortURL: "google.com",
         longURL: "google.com",
         visitCount: 1,
         folder_id: 1
       }),
       knex('urls').insert({
-        id: 2,
+        id: 9994,
         shortURL: "reddit.com/",
         longURL: "reddit.com",
         visitCount: 2,
         folder_id: 1
+
       }),
       knex('urls').insert({
-        id: 3,
+        id: 9995,
         shortURL: "wham.com/",
         longURL: "wham.com/",
         visitCount: 1,
