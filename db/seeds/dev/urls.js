@@ -7,14 +7,14 @@ exports.seed = function(knex, Promise) {
         shortURL: "google.com",
         longURL: "google.com",
         visitCount: 1,
-        folder_id: 1
+        folder_id: 9999
       }),
       knex('urls').insert({
         id: 9994,
         shortURL: "reddit.com/",
         longURL: "reddit.com",
         visitCount: 2,
-        folder_id: 1
+        folder_id: 9999
 
       }),
       knex('urls').insert({
@@ -22,7 +22,7 @@ exports.seed = function(knex, Promise) {
         shortURL: "wham.com/",
         longURL: "wham.com/",
         visitCount: 1,
-        folder_id: 2
+        folder_id: 9998
       })
     ]);
   });

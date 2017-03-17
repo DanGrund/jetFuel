@@ -3,11 +3,11 @@ exports.seed = function(knex, Promise) {
   .then(() => {
     return Promise.all([
       knex('folders').insert({
-        id: 1,
+        id: 9998,
         name: 'LimboLineLucy'
       }),
       knex('folders').insert({
-        id: 2,
+        id: 9999,
         name: 'FunBunDanGrun'
       })
     ]);
