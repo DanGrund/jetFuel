@@ -147,6 +147,7 @@ button:focus {
   flex-direction: row;
   justify-content: center;
   margin: 20px auto;
+  margin-bottom: 40px;
 }
 
 #url-input-form input {
@@ -194,7 +195,4 @@ a {
 
 .visit-count {
   width: 3vw;
-}
-td {
-  border: 1px solid;
 }
