@@ -8,6 +8,7 @@ const environment = process.env.NODE_ENV || 'development';
 const configuration = require('./knexfile')[environment];
 const database = require('knex')(configuration);
 
+
 app.use(cors());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -133,6 +134,7 @@ app.put(`/:shortURL`, (request, response) => {
       response.status(200);
     })
   })
+
 })
 
 if(!module.parent) {
