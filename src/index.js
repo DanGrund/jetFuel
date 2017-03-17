@@ -20,6 +20,7 @@ const duplicateFolderError = (input) => {
 }
 
 const displayFolders = (folders) => {
+  console.log(folders)
   if(folders === 'dupe') {
     return duplicateFolderError(true);
   } else {
