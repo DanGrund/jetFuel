@@ -39,7 +39,7 @@ const displayURLs = (urls) => {
     // const date = parseInt(url.created_at)
     $('#urls-table').append(
       `<tr class='url-table-row'>
-        <td>
+        <td class='short-url'>
           <a href="${url.longURL}"
              class="short-url-link"
              id=${url.shortURL}
@@ -47,9 +47,9 @@ const displayURLs = (urls) => {
             localhost:3000/${url.shortURL}
           </a>
         </td>
-        <td>${url.longURL}</td>
-        <td>${url.visitCount}</td>
-        <td>${date}</td></tr>`
+        <td class='long-url'>${url.longURL}</td>
+        <td class='visit-count'>${url.visitCount}</td>
+        <td class='date'>${date}</td></tr>`
     )
   })
 }

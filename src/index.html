@@ -11,14 +11,15 @@
 
     <section id='new-folder-field' class='header'>
       <h1 class='logo'>Jet Fuel</h1>
-      <form class='new-folder-form'>
-        <input id='new-folder' type="text" placeholder="new folder" class='input'/>
-        <button id='create-folder-btn'>+ Folder</button>
-      </form>
+
     </section>
 
     <section id='link-folders'>
       <article id='folders'>
+        <form class='new-folder-form'>
+          <input id='new-folder' type="text" placeholder="new folder" class='input'/>
+          <button id='create-folder-btn'>+ Folder</button>
+        </form>
         <h3 id='folders-header'>Folders</h3>
         <ul>
         </ul>
@@ -34,10 +35,10 @@
         <table id='urls-table' class="sortable">
           <thead>
             <tr>
-              <th>Short</th>
-              <th>Long</th>
-              <th id="visits">Visits</th>
-              <th id="date-created">date created</th></tr>
+              <th class='short-url'>Short</th>
+              <th class='long-url'>Long</th>
+              <th id="visits" class='visit-count'>Visits</th>
+              <th id="date-created" class='date'>date created</th></tr>
           </thead>
           <tbody>
           </tbody>

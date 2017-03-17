@@ -1,9 +1,7 @@
-/*body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
-}*/
+/*blue #4484CE;
+aluminim: #D9D9D9;
+yellow #F9CF00;
+Tangerine: #F19F4D;*/
 
 #link-folders {
   display: flex;
@@ -24,30 +22,31 @@ body {
 
 #folders {
   width: 35vw;
-  background-color: #f3ffea;
+  background-color: #D9D9D9;
   align-items: center;
+
 }
 
 button {
   border-radius: 5px;
-  height: 30px;
   margin-left: 5px;
   border: none;
   font-size: 16px;
-  border: 2px solid black;
+  border: 1px solid black;
+  background-color: #F9CF00;
 }
 
 button:hover {
   cursor: pointer;
 }
 
-#create-folder-btn {
-  background-color: #f29d5c;
-  border: 2px solid black;
+th {
+  font-weight: bolder;
+  font-size: 18px;
+  border-bottom: 1px solid;
 }
 
 #create-folder-btn:hover {
-  background-color: black;
   color: #f29d5c;
 }
 
@@ -62,10 +61,9 @@ button:focus {
 }
 
 #links, #folders {
-  height: 78vh;
   display: flex;
   flex-direction: column;
-  margin-top: 22vh;
+  margin-top: 18vh;
 }
 
 .header {
@@ -74,9 +72,10 @@ button:focus {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 22vh;
-  background-color: #f29d5c;
+  height: 18vh;
+  background-color: #4484CE;
   position: fixed;
+  z-index: 10;
 }
 
 .input {
@@ -87,6 +86,7 @@ button:focus {
   font-weight: lighter;
   padding: 2.5px;
   border-radius: 3px;
+  border: 1px solid;
 }
 
 #new-folder {
@@ -116,10 +116,11 @@ button:focus {
 }
 
 .new-folder-form {
-  margin: 5px auto;
+  margin: 10px auto;
 }
 
 .folder {
+  background-color: rgba(241,159,77, .5);
   list-style: none;
   margin: 5px;
   padding: 10px;
@@ -154,16 +155,14 @@ button:focus {
 }
 
 #shorten-url-btn {
-  background-color: #FFF;
 }
 
 #shorten-url-btn:hover {
-  background-color: black;
   color: white;
 }
 
 .active-folder {
-  background-color: magenta;
+  background-color: #F19F4D;
 }
 
 .url-table-row {
@@ -183,4 +182,19 @@ button:focus {
 a {
   text-decoration: none;
   color: black;
+}
+
+.short-url, .date {
+  width: 10vw;
+}
+
+.long-url {
+  width: 13vw;
+}
+
+.visit-count {
+  width: 3vw;
+}
+td {
+  border: 1px solid;
 }
