@@ -11,21 +11,7 @@ const loadFolders = () => {
 
 $('document').ready(loadFolders);
 
-const duplicateFolderError = (input) => {
-  if(input) {
-    $('.duplicate-error').text('Folder already exists')
-  } else {
-    $('.duplicate-error').text('')
-  }
-}
-
 const displayFolders = (folders) => {
-  console.log(folders)
-  if(folders === 'dupe') {
-    return duplicateFolderError(true);
-  } else {
-    duplicateFolderError(false);
-  }
   $('.folder').remove();
   folders.forEach(folder => {
     $('#folders').append(`
@@ -44,7 +30,18 @@ const displayURLs = (urls) => {
     const date = moment(parseInt(url.created_at)).format('lll')
     // const date = parseInt(url.created_at)
     $('#urls-table').append(
-      `<tr class='url-table-row'><td><a href="${url.longURL}" class="short-url-link" id=${url.shortURL} target="_blank">localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${date}</td></tr>`
+      `<tr class='url-table-row'>
+        <td>
+          <a href="${url.longURL}"
+             class="short-url-link"
+             id=${url.shortURL}
+             target="_blank">
+            localhost:3000/${url.shortURL}
+          </a>
+        </td>
+        <td>${url.longURL}</td>
+        <td>${url.visitCount}</td>
+        <td>${date}</td></tr>`
     )
   })
 }
@@ -73,12 +70,11 @@ const addFolder = (folder) => {
       'Content-Type': 'application/json'
     },
     method: 'POST',
-    body: JSON.stringify({
-      folder: folder
-    })
+    body: JSON.stringify({ folder })
   })
     .then(res => res.json())
     .then(folders => displayFolders(folders))
+    // .catch(err => console.log(err))
 }
 
 const toggleActive = (id) => {
@@ -123,7 +119,6 @@ const sortDown = (attribute) => {
   displayURLs(newURLorder)
 }
 
-
 $('#visits').on('click', () => {
  if ($('#visits').hasClass('visits-up')) {
    sortUp('visitCount')
@@ -147,7 +142,6 @@ $('#date-created').on('click', () => {
 $('#urls-table').on('click', '.short-url-link', (e) => {
   updateVisitCount(e.target.id)
 })
-
 
 const updateVisitCount = (urlID) => {
   fetch(`/${urlID}`, {
