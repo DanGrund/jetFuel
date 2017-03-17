@@ -34,6 +34,7 @@ button {
   margin-left: 5px;
   border: none;
   font-size: 16px;
+  border: 2px solid black;
 }
 
 button:hover {
@@ -48,10 +49,9 @@ button:hover {
 #create-folder-btn:hover {
   background-color: black;
   color: #f29d5c;
-  border: 2px solid black;
 }
 
-#create-folder-btn:focus {
+button:focus {
   outline: none;
 }
 
@@ -131,12 +131,13 @@ button:hover {
   display: flex;
   align-items: center;
   box-shadow: 10px 10px 10px -6px rgba(148,139,148,0.6);
+  transition-duration: .5s;
 }
-
-
 
 .folder:hover {
   cursor: pointer;
+  transform: scale(1.1);
+  transition: transform .5s;
 }
 
 #url-input-form {
@@ -150,6 +151,15 @@ button:hover {
 #url-input-form input {
   width: 50%;
   border: 1px solid;
+}
+
+#shorten-url-btn {
+  background-color: #FFF;
+}
+
+#shorten-url-btn:hover {
+  background-color: black;
+  color: white;
 }
 
 .active-folder {
@@ -168,4 +178,9 @@ button:hover {
 #urls-table td {
   text-align: center;
   padding: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
