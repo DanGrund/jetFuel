@@ -95,6 +95,7 @@ $('#folders').on('click', '.folder', (e) => {
   const titleId = e.target.id;
   toggleActive(titleId);
   loadURLs()
+  enableURLBtn();
 })
 
 const addURL = (url) => {
@@ -156,3 +157,23 @@ const updateVisitCount = (urlID) => {
     method: 'PUT',
   })
 }
+
+const enableURLBtn = () => {
+  console.log(activeFolder);
+  const btn = $('#shorten-url-btn');
+  if(activeFolder) {
+    return btn.attr('disabled', false)
+  } else {
+    return btn.attr('disabled', true)
+  }
+}
+
+const toggleFolderBtn = (e) => {
+  console.log(e.target.value);
+  const btn = $('#create-folder-btn');
+  e.target.value ? btn.attr('disabled', false) : btn.attr('disabled', true);
+}
+
+$('#new-folder').on('keyup', (e) => {
+  toggleFolderBtn(e);
+})
