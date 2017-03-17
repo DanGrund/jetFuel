@@ -20,6 +20,7 @@ const duplicateFolderError = (input) => {
 }
 
 const displayFolders = (folders) => {
+  console.log(folders)
   if(folders === 'dupe') {
     return duplicateFolderError(true);
   } else {
@@ -40,8 +41,10 @@ const clearInput = (input) => {
 const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
+    const date = moment(parseInt(url.created_at)).format('lll')
+    // const date = parseInt(url.created_at)
     $('#urls-table').append(
-      `<tr class='url-table-row'><td><a href="${url.longURL}" class="short-url-link" id=${url.shortURL} target="_blank">localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${moment(url.created_at).format('lll')}</td></tr>`
+      `<tr class='url-table-row'><td><a href="${url.longURL}" class="short-url-link" id=${url.shortURL} target="_blank">localhost:3000/${url.shortURL}</a></td><td>${url.longURL}</td><td>${url.visitCount}</td><td>${date}</td></tr>`
     )
   })
 }
@@ -123,20 +126,20 @@ const sortDown = (attribute) => {
 
 $('#visits').on('click', () => {
  if ($('#visits').hasClass('visits-up')) {
-   sortDown('visitCount')
+   sortUp('visitCount')
    $('#visits').toggleClass('visits-up')
  } else {
-   sortUp('visitCount')
+   sortDown('visitCount')
    $('#visits').toggleClass('visits-up')
  }
 })
 
 $('#date-created').on('click', () => {
  if ($('#date-created').hasClass('date-created-up')) {
-   sortDown('dateCreated')
+   sortUp('created_at')
    $('#date-created').toggleClass('date-created-up')
  } else {
-   sortUp('dateCreated')
+   sortDown('created_at')
    $('#date-created').toggleClass('date-created-up')
  }
 })

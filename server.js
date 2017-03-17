@@ -77,6 +77,7 @@ app.post('/api/v1/folders/:id', (request, response) => {
     longURL,
     shortURL,
     visitCount: 0,
+    created_at: JSON.stringify(Date.now()),
     folder_id: id
   }
 
@@ -99,7 +100,7 @@ app.get(`/:shortURL`, (request, response) => {
   const { shortURL } = request.params;
   let longURL;
   let visits;
-  
+
   database('urls').where('shortURL', shortURL).select()
   .then((url)=>{
     longURL = (url[0].longURL)

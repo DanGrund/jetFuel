@@ -3,25 +3,28 @@ exports.seed = function(knex, Promise) {
   .then(() => {
     return Promise.all([
       knex('urls').insert({
-        id: 9992,
-        shortURL: "google.com",
-        longURL: "google.com",
+        id: 1,
+        shortURL: "abcde",
+        longURL: "http://google.com",
         visitCount: 1,
+        created_at: "1489710492580",
         folder_id: 1
       }),
       knex('urls').insert({
-        id: 9994,
-        shortURL: "reddit.com/",
-        longURL: "reddit.com",
+        id: 2,
+        shortURL: "fghki",
+        longURL: "http://reddit.com",
         visitCount: 2,
+        created_at: "1489710492580",
         folder_id: 1
 
       }),
       knex('urls').insert({
-        id: 9995,
-        shortURL: "wham.com/",
-        longURL: "wham.com/",
+        id: 3,
+        shortURL: "querty",
+        longURL: "http://wham.com/",
         visitCount: 1,
+        created_at: "1489710492580",
         folder_id: 2
       })
     ]);
