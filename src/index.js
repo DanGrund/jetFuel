@@ -74,7 +74,7 @@ const displayURLs = (urls) => {
              class="short-url-link"
              id=${url.shortURL}
              target="_blank">
-            localhost:3000/${url.shortURL}
+            calm-temple-36519.herokuapp.com/${url.shortURL}
           </a>
         </td>
         <td class='long-url'>${url.longURL}</td>
