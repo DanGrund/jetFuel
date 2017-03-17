@@ -45,12 +45,18 @@ app.get('/api/v1/folders/:id', (request, response) => {
       response.status(201).json(urlData)
     })
     .catch((error)=>{
-      console.error('you fucked up')
       response.status(422).send({
         error: 'ID did not match any existing folders'
       })
     })
 })
+
+
+
+
+
+
+
 
 app.post('/api/v1/folders', (request, response) => {
   const { folder } = request.body
@@ -67,6 +73,15 @@ app.post('/api/v1/folders', (request, response) => {
       });
   })
 })
+
+
+
+
+
+
+
+
+
 
 app.post('/api/v1/folders/:id', (request, response) => {
   const { id } = request.params
@@ -88,10 +103,10 @@ app.post('/api/v1/folders/:id', (request, response) => {
       response.status(201).json(urlData)
     })
     .catch((error)=>{
-      console.error('you fucked up')
-      response.status(422).send({
-        error: 'ID did not match any existing folders'
-      })
+      response.status(422).json(
+        error
+        // error: 'ID did not match any existing folders'
+      )
     })
   })
 })
@@ -125,12 +140,12 @@ app.put(`/:shortURL`, (request, response) => {
   let visits;
 
   database('urls').where('shortURL', shortURL).select()
-  .then((url)=>{
+  .then((url) => {
     visits = (url[0].visitCount) + 1
   })
-  .then(()=>{
+  .then(() => {
     database('urls').where('shortURL', shortURL).update({ visitCount: visits })
-    .then(()=>{
+    .then(() => {
       response.status(200);
     })
   })
