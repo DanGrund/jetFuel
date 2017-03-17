@@ -11,20 +11,54 @@
   align-content: space-between;
 }
 
+body {
+  /*font-family: 'Noto Sans', sans-serif;*/
+  font-family: 'Ruda', sans-serif;
+}
+
 .logo {
-  font-size: 6vh;
+  /*font-family: 'Stalinist One', cursive;*/
+  font-family: 'Nosifer', cursive;
+  font-size: 9vh;
 }
 
 #folders {
   width: 35vw;
+  background-color: #f3ffea;
+  align-items: center;
+}
+
+button {
+  border-radius: 5px;
+  height: 30px;
+  margin-left: 5px;
+  border: none;
+  font-size: 16px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+#create-folder-btn {
+  background-color: #f29d5c;
+  border: 2px solid black;
+}
+
+#create-folder-btn:hover {
+  background-color: black;
+  color: #f29d5c;
+  border: 2px solid black;
+}
+
+#create-folder-btn:focus {
+  outline: none;
 }
 
 #links {
   width: 63vw;
   position: fixed;
   right: 0;
-  border-left: 2px solid black;
-
 }
 
 #links, #folders {
@@ -41,8 +75,22 @@
   align-items: center;
   justify-content: center;
   height: 22vh;
-  background-color: magenta;
+  background-color: #f29d5c;
   position: fixed;
+}
+
+.input {
+  height: 25px;
+  font-size: 18px;
+  outline: none;
+  border: none;
+  font-weight: lighter;
+  padding: 2.5px;
+  border-radius: 3px;
+}
+
+#new-folder {
+  margin-top: 10px;
 }
 
 .duplicate-error {
@@ -53,6 +101,7 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: baseline;
 }
 
 .header h1 {
@@ -61,8 +110,9 @@
 
 #folders-header {
   align-self: center;
-  font-size: 30px;
+  font-size: 46px;
   padding: 5px;
+  margin: 10px auto;
 }
 
 .new-folder-form {
@@ -73,9 +123,17 @@
   list-style: none;
   margin: 5px;
   padding: 10px;
-  border: 1px solid;
+  border: 1px solid #ccc;
   border-radius: 5px;
+  width: 80%;
+  height: 30px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  box-shadow: 10px 10px 10px -6px rgba(148,139,148,0.6);
 }
+
+
 
 .folder:hover {
   cursor: pointer;
@@ -86,11 +144,12 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 5px;
+  margin: 20px auto;
 }
 
 #url-input-form input {
-  width: 60%;
+  width: 50%;
+  border: 1px solid;
 }
 
 .active-folder {

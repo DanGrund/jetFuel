@@ -20,6 +20,14 @@ const displayFolders = (folders) => {
   })
 }
 
+const folderMsg = () => {
+  if(!activeFolder) {
+    $('.folder-msg').text('<p>Please select a folder</p>')
+  }
+}
+
+folderMsg();
+
 const clearInput = (input) => {
   $(`${input}`).val('')
 }
