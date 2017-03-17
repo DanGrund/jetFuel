@@ -51,13 +51,6 @@ app.get('/api/v1/folders/:id', (request, response) => {
     })
 })
 
-
-
-
-
-
-
-
 app.post('/api/v1/folders', (request, response) => {
   const { folder } = request.body
   const newFolder = { name: folder }
@@ -73,15 +66,6 @@ app.post('/api/v1/folders', (request, response) => {
       });
   })
 })
-
-
-
-
-
-
-
-
-
 
 app.post('/api/v1/folders/:id', (request, response) => {
   const { id } = request.params
@@ -128,7 +112,6 @@ app.get(`/:shortURL`, (request, response) => {
     })
   })
   .catch((error)=>{
-    console.error('is it this one?')
     response.status(422).send({
       error: 'nope'
     })

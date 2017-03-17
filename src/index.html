@@ -2,7 +2,8 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Jet Fuel! It's cocaine in a can baby</title>
+    <title>Jet Fuel!</title>
+    <link href="https://fonts.googleapis.com/css?family=Nosifer|Noto+Sans|Ruda|Stalinist+One" rel="stylesheet">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
   </head>
@@ -10,15 +11,15 @@
 
     <section id='new-folder-field' class='header'>
       <h1 class='logo'>Jet Fuel</h1>
-      <form class='new-folder-form'>
-        <input id='new-folder' type="text" placeholder="new folder" />
-        <button id='create-folder-btn'>create folder</button>
-      </form>
-      <span class='duplicate-error'></span>
+
     </section>
 
     <section id='link-folders'>
       <article id='folders'>
+        <form class='new-folder-form'>
+          <input id='new-folder' type="text" placeholder="new folder" class='input'/>
+          <button id='create-folder-btn' disabled>+ Folder</button>
+        </form>
         <h3 id='folders-header'>Folders</h3>
         <ul>
         </ul>
@@ -27,17 +28,22 @@
       <article id='links'>
         <form id='url-input-form'>
           <input type='text' placeholder="long url"  id=
-        "url-input"/>
-          <button id="shorten-url-btn">shorten url</button>
+        "url-input" class='input'/>
+          <button id="shorten-url-btn" disabled>shorten url</button>
         </form>
 
-        <table id='urls-table' class="sortable">
+        <table id='urls-table' class="sortable hidden">
           <thead>
-            <tr><th>Short</th><th>Long</th><th id="visits">Visits</th><th id="date-created">date created</th></tr>
+            <tr>
+              <th class='short-url'>Short</th>
+              <th class='long-url'>Long</th>
+              <th id="visits" class='visit-count'>Visits</th>
+              <th id="date-created" class='date'>date created</th></tr>
           </thead>
           <tbody>
           </tbody>
         </table>
+        <span class='.folder-msg'></span>
       </article>
     </section>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
