@@ -18,6 +18,7 @@ const displayFolders = (folders) => {
       <li class='folder' id=${folder.id}>${folder.name}</li>`
     )
   })
+  toggleActive(activeFolder)
 }
 
 const folderMsg = () => {
@@ -95,6 +96,14 @@ const loadURLs = () => {
     });
 }
 
+const toggleActive = (id) => {
+  activeFolder = id;
+  $(`.folder`).removeClass('active-folder')
+  $(`#${activeFolder}`).addClass('active-folder')
+}
+
+
+
 $('#create-folder-btn').on('click', (e) => {
   e.preventDefault();
   const newFolder = $('#new-folder').val();
@@ -112,12 +121,6 @@ const addFolder = (folder) => {
   })
     .then(res => res.json())
     .then(folders => displayFolders(folders))
-}
-
-const toggleActive = (id) => {
-  activeFolder = id;
-  $(`.folder`).removeClass('active-folder')
-  $(`#${activeFolder}`).addClass('active-folder')
 }
 
 const toggleTableView = () => {
@@ -167,7 +170,6 @@ const updateVisitCount = (urlID) => {
 }
 
 const enableURLBtn = () => {
-  console.log(activeFolder);
   const btn = $('#shorten-url-btn');
   if(activeFolder) {
     return btn.attr('disabled', false)
