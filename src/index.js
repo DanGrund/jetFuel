@@ -82,7 +82,6 @@ const addFolder = (folder) => {
   })
     .then(res => res.json())
     .then(folders => displayFolders(folders))
-    // .catch(err => console.log(err))
 }
 
 const toggleActive = (id) => {
@@ -91,11 +90,31 @@ const toggleActive = (id) => {
   $(`#${activeFolder}`).addClass('active-folder')
 }
 
+const showTable = () => {
+  if(activeFolder) {
+    $('#links').find('table').remove()
+    $('#links').append(
+      `<table id='urls-table' class="sortable">
+        <thead>
+          <tr>
+            <th class='short-url'>Short</th>
+            <th class='long-url'>Long</th>
+            <th id="visits" class='visit-count'>Visits</th>
+            <th id="date-created" class='date'>date created</th></tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>`
+    )
+  }
+}
+
 $('#folders').on('click', '.folder', (e) => {
   const titleId = e.target.id;
   toggleActive(titleId);
   loadURLs()
   enableURLBtn();
+  showTable()
 })
 
 const addURL = (url) => {
@@ -169,7 +188,6 @@ const enableURLBtn = () => {
 }
 
 const toggleFolderBtn = (e) => {
-  console.log(e.target.value);
   const btn = $('#create-folder-btn');
   e.target.value ? btn.attr('disabled', false) : btn.attr('disabled', true);
 }
