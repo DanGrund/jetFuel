@@ -44,20 +44,20 @@ const sortDown = (attribute) => {
 
 $('#visits').on('click', () => {
  if ($('#visits').hasClass('visits-up')) {
-   sortUp('visitCount')
+   sortDown('visitCount')
    $('#visits').toggleClass('visits-up')
  } else {
-   sortDown('visitCount')
+   sortUp('visitCount')
    $('#visits').toggleClass('visits-up')
  }
 })
 
 $('#date-created').on('click', () => {
  if ($('#date-created').hasClass('date-created-up')) {
-   sortUp('created_at')
+   sortDown('created_at')
    $('#date-created').toggleClass('date-created-up')
  } else {
-   sortDown('created_at')
+   sortUp('created_at')
    $('#date-created').toggleClass('date-created-up')
  }
 })
@@ -74,7 +74,7 @@ const displayURLs = (urls) => {
              class="short-url-link"
              id=${url.shortURL}
              target="_blank">
-            localhost:3000/${url.shortURL}
+            jet-fuel-danbo.herokuapp.com/${url.shortURL}
           </a>
         </td>
         <td class='long-url'>${url.longURL}</td>
