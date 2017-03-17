@@ -11,7 +11,10 @@ exports.up = function(knex, Promise) {
           table.string('shortURL');
           table.string('longURL');
           table.integer('visitCount');
-          table.timestamps();
+          table.string('created_at');
+          // table.date('created_at');
+          // table.dateTime('created_at');
+          // table.timestamps('created_at');
           table.integer('folder_id')
                .references('id')
                .inTable('folders');
