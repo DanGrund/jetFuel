@@ -32,6 +32,36 @@ const clearInput = (input) => {
   $(`${input}`).val('')
 }
 
+const sortUp = (attribute) => {
+  newURLorder = currentURLs.sort((a,b)=>{return a[attribute] > b[attribute] })
+  displayURLs(newURLorder)
+}
+
+const sortDown = (attribute) => {
+  newURLorder = currentURLs.sort((a,b)=>{return a[attribute] < b[attribute] })
+  displayURLs(newURLorder)
+}
+
+$('#visits').on('click', () => {
+ if ($('#visits').hasClass('visits-up')) {
+   sortUp('visitCount')
+   $('#visits').toggleClass('visits-up')
+ } else {
+   sortDown('visitCount')
+   $('#visits').toggleClass('visits-up')
+ }
+})
+
+$('#date-created').on('click', () => {
+ if ($('#date-created').hasClass('date-created-up')) {
+   sortUp('created_at')
+   $('#date-created').toggleClass('date-created-up')
+ } else {
+   sortDown('created_at')
+   $('#date-created').toggleClass('date-created-up')
+ }
+})
+
 const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
@@ -90,22 +120,11 @@ const toggleActive = (id) => {
   $(`#${activeFolder}`).addClass('active-folder')
 }
 
-const showTable = () => {
+const toggleTableView = () => {
   if(activeFolder) {
-    $('#links').find('table').remove()
-    $('#links').append(
-      `<table id='urls-table' class="sortable">
-        <thead>
-          <tr>
-            <th class='short-url'>Short</th>
-            <th class='long-url'>Long</th>
-            <th id="visits" class='visit-count'>Visits</th>
-            <th id="date-created" class='date'>date created</th></tr>
-        </thead>
-        <tbody>
-        </tbody>
-      </table>`
-    )
+    $('#urls-table').removeClass('hidden')
+  } else {
+    $('#urls-table').addClass('hidden')
   }
 }
 
@@ -114,7 +133,7 @@ $('#folders').on('click', '.folder', (e) => {
   toggleActive(titleId);
   loadURLs()
   enableURLBtn();
-  showTable()
+  toggleTableView();
 })
 
 const addURL = (url) => {
@@ -135,36 +154,6 @@ $('#shorten-url-btn').on('click', (e) => {
   const url = $('#url-input').val();
   addURL(url)
   clearInput('#url-input')
-})
-
-const sortUp = (attribute) => {
-  newURLorder = currentURLs.sort((a,b)=>{return a[attribute] > b[attribute] })
-  displayURLs(newURLorder)
-}
-
-const sortDown = (attribute) => {
-  newURLorder = currentURLs.sort((a,b)=>{return a[attribute] < b[attribute] })
-  displayURLs(newURLorder)
-}
-
-$('#visits').on('click', () => {
- if ($('#visits').hasClass('visits-up')) {
-   sortUp('visitCount')
-   $('#visits').toggleClass('visits-up')
- } else {
-   sortDown('visitCount')
-   $('#visits').toggleClass('visits-up')
- }
-})
-
-$('#date-created').on('click', () => {
- if ($('#date-created').hasClass('date-created-up')) {
-   sortUp('created_at')
-   $('#date-created').toggleClass('date-created-up')
- } else {
-   sortDown('created_at')
-   $('#date-created').toggleClass('date-created-up')
- }
 })
 
 $('#urls-table').on('click', '.short-url-link', (e) => {

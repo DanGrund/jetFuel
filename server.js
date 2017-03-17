@@ -112,7 +112,6 @@ app.get(`/:shortURL`, (request, response) => {
     })
   })
   .catch((error)=>{
-    console.error('is it this one?')
     response.status(422).send({
       error: 'nope'
     })

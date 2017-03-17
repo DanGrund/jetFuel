@@ -24,7 +24,7 @@ body {
   width: 35vw;
   background-color: #D9D9D9;
   align-items: center;
-
+  min-height:82vh;
 }
 
 button {
@@ -194,4 +194,14 @@ a {
 
 .visit-count {
   width: 3vw;
+}
+
+#visits:hover, #date-created:hover {
+  color: #F19F4D;
+  cursor: pointer;
+  border-color: black;
+}
+
+.hidden {
+  visibility: hidden;
 }
