@@ -18,6 +18,7 @@ const displayFolders = (folders) => {
       <li class='folder' id=${folder.id}>${folder.name}</li>`
     )
   })
+  toggleActive(activeFolder)
 }
 
 const folderMsg = () => {
@@ -44,20 +45,20 @@ const sortDown = (attribute) => {
 
 $('#visits').on('click', () => {
  if ($('#visits').hasClass('visits-up')) {
-   sortUp('visitCount')
+   sortDown('visitCount')
    $('#visits').toggleClass('visits-up')
  } else {
-   sortDown('visitCount')
+   sortUp('visitCount')
    $('#visits').toggleClass('visits-up')
  }
 })
 
 $('#date-created').on('click', () => {
  if ($('#date-created').hasClass('date-created-up')) {
-   sortUp('created_at')
+   sortDown('created_at')
    $('#date-created').toggleClass('date-created-up')
  } else {
-   sortDown('created_at')
+   sortUp('created_at')
    $('#date-created').toggleClass('date-created-up')
  }
 })
@@ -74,7 +75,7 @@ const displayURLs = (urls) => {
              class="short-url-link"
              id=${url.shortURL}
              target="_blank">
-            localhost:3000/${url.shortURL}
+            jet-fuel-danbo.herokuapp.com/${url.shortURL}
           </a>
         </td>
         <td class='long-url'>${url.longURL}</td>
@@ -95,6 +96,14 @@ const loadURLs = () => {
     });
 }
 
+const toggleActive = (id) => {
+  activeFolder = id;
+  $(`.folder`).removeClass('active-folder')
+  $(`#${activeFolder}`).addClass('active-folder')
+}
+
+
+
 $('#create-folder-btn').on('click', (e) => {
   e.preventDefault();
   const newFolder = $('#new-folder').val();
@@ -112,12 +121,6 @@ const addFolder = (folder) => {
   })
     .then(res => res.json())
     .then(folders => displayFolders(folders))
-}
-
-const toggleActive = (id) => {
-  activeFolder = id;
-  $(`.folder`).removeClass('active-folder')
-  $(`#${activeFolder}`).addClass('active-folder')
 }
 
 const toggleTableView = () => {
@@ -167,7 +170,6 @@ const updateVisitCount = (urlID) => {
 }
 
 const enableURLBtn = () => {
-  console.log(activeFolder);
   const btn = $('#shorten-url-btn');
   if(activeFolder) {
     return btn.attr('disabled', false)
