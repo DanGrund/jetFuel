@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/DanGrund/jetFuel/tree/master.svg?style=svg)](https://circleci.com/gh/DanGrund/jetFuel/tree/master)
+
 # jetFuel
 A url shortener and intro to node-express and knex with postgresql 
 
