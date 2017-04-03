@@ -5,4 +5,13 @@ machine:
   timezone:
     America/Denver
 
-  
+  deployment:
+    staging:
+      branch: staging
+      heroku:
+        appName: calm-temple-36519-staging
+
+  production:
+    branch: production
+    heroku:
+      appName: shortenem
