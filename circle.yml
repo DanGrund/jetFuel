@@ -9,3 +9,14 @@ machine:
     override:
       - npm run lint
       - npm run test
+
+  deployment:
+    staging:
+      branch: staging
+      heorku:
+        appName: grocery-list-staging
+
+  production:
+    branch: production
+    heroku:
+      appName: calm-temple-36519

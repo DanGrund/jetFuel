@@ -67,7 +67,6 @@ const displayURLs = (urls) => {
   $('.url-table-row').remove();
   urls.forEach(url => {
     const date = moment(parseInt(url.created_at)).format('lll')
-    // const date = parseInt(url.created_at)
     $('#urls-table').append(
       `<tr class='url-table-row'>
         <td class='short-url'>
@@ -75,7 +74,7 @@ const displayURLs = (urls) => {
              class="short-url-link"
              id=${url.shortURL}
              target="_blank">
-            calm-temple-36519.herokuapp.com/${url.shortURL}
+            shortenem.herokuapp.com/${url.shortURL}
           </a>
         </td>
         <td class='long-url'>${url.longURL}</td>

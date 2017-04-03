@@ -89,7 +89,6 @@ app.post('/api/v1/folders/:id', (request, response) => {
     .catch((error)=>{
       response.status(422).json(
         error
-        // error: 'ID did not match any existing folders'
       )
     })
   })
